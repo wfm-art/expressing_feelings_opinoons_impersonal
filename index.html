@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Impersonal Expressions (expressing Feelings & Opinions with Impersonal Constructions)</title>
+    <title>Impersonal Expressions</title>
     
     <style>
         :root {
-            /* Paleta Azul Estándar (Unified Suite) */
+            /* Paleta Azul Estándar */
             --primary-blue: #007bff;
             --dark-blue: #0056b3;
             --green: #28a745;
@@ -77,7 +77,7 @@
         /* Bank Styles */
         .bank-controls { display: flex; gap: 10px; margin-bottom: 20px; justify-content: center; background: var(--light-gray-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); }
         .bank-controls select { padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 1em; min-width: 200px; background: var(--container-bg); color: var(--text-color); }
-        .verb-card { background: var(--container-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .verb-card { background: var(--container-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s; cursor: pointer; }
         .verb-card:hover { transform: translateY(-3px); border-color: var(--primary-blue); }
         .verb-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 10px; }
         .verb-title { font-size: 1.3em; font-weight: bold; color: var(--primary-blue); text-transform: capitalize; }
@@ -86,12 +86,26 @@
         .cmd-form { font-weight: bold; color: var(--text-color); cursor: pointer; }
         .btn-explain { background: var(--yellow); color: #333; border: none; padding: 3px 10px; border-radius: 15px; font-size: 0.8em; cursor: pointer; font-weight: bold; margin-left: 10px; }
         
-        /* Modal */
-        #explain-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: none; justify-content: center; align-items: center; }
-        .modal-content { background: var(--container-bg); padding: 30px; border-radius: 15px; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; border: 2px solid var(--primary-blue); color: var(--text-color); }
-        .modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.5em; cursor: pointer; color: #666; }
+        /* Modal FIX */
+        #explain-modal { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.6); z-index: 9999; display: none; 
+            justify-content: center; align-items: center; 
+        }
+        .modal-content { 
+            background: var(--container-bg); padding: 30px; border-radius: 15px; 
+            max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; 
+            border: 2px solid var(--primary-blue); color: var(--text-color); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative;
+        }
+        .modal-close { 
+            position: absolute; top: 10px; right: 20px; 
+            font-size: 2.5em; font-weight: bold; cursor: pointer; 
+            color: #666; line-height: 0.8; transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--red); }
         .explain-block { margin-bottom: 20px; border-left: 4px solid var(--border-color); padding-left: 15px; }
-        .explain-block h4 { margin: 0 0 5px 0; }
+        .explain-block h4 { margin: 0 0 5px 0; color: var(--primary-blue); }
         .explain-ex { font-style: italic; background: var(--light-gray-bg); padding: 5px; border-radius: 4px; display: inline-block; margin-top: 5px; }
 
         /* Practice */
@@ -147,7 +161,7 @@
                 <button class="control-button" onclick="toggleTheme()">☀️/🌙</button>
             </div>
             <h1 data-lang-key="header_title">Impersonal Expressions</h1>
-            <p data-lang-key="header_subtitle">Expressing Feelings & Opinions with Impersonal Constructions</p>
+            <p data-lang-key="header_subtitle">General vs. Specific Actions</p>
         </header>
         
         <nav class="main-tab-nav">
@@ -166,13 +180,13 @@
                     <div class="tense-box">
                         <span class="icon-wrapper">📣</span>
                         <h3 style="color: var(--green);" data-lang-key="cond_title">General (To everyone)</h3>
-                        <p>No specific subject involved.</p>
+                        <p data-lang-key="metaphor_cond">No specific subject involved.</p>
                         <p><em>"Es importante <strong>reciclar</strong>."</em></p>
                     </div>
                     <div class="tense-box">
                         <span class="icon-wrapper">🎯</span>
                         <h3 style="color: var(--primary-blue);" data-lang-key="cmd_title">Specific (To someone)</h3>
-                        <p>Targeting a specific person.</p>
+                        <p data-lang-key="metaphor_cmd">Targeting a specific person.</p>
                         <p><em>"Es importante que tú <strong>recicles</strong>."</em></p>
                     </div>
                 </div>
@@ -222,7 +236,7 @@
 
             <div id="tab-bank" class="main-tab-content">
                 <h2 data-lang-key="bank_title">Adjective Bank</h2>
-                <p data-lang-key="bank_desc">Common impersonal expressions.</p>
+                <p data-lang-key="bank_desc">Common impersonal expressions. Click to see details.</p>
                 
                 <div class="bank-controls">
                     <label>Filter:</label>
@@ -230,10 +244,10 @@
                         <option value="all">All Adjectives</option>
                     </select>
                 </div>
-                <div id="impBankContainer"></div>
+                <div id="impBankContainer" class="comparison-grid" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
             </div>
 
-            <div id="explain-modal">
+            <div id="explain-modal" onclick="if(event.target === this) closeModal()">
                 <div class="modal-content">
                     <span class="modal-close" onclick="closeModal()">&times;</span>
                     <h2 id="modal-title">Expression</h2>
@@ -312,6 +326,38 @@
     </div>
 
 <script>
+
+// --- GLOBAL UTILS ---
+function speak(txt) {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(txt);
+    u.lang = 'es-ES';
+    const voices = window.speechSynthesis.getVoices();
+    const v = voices.find(voice => voice.name.includes('Google') && voice.lang.includes('es')) || 
+              voices.find(voice => (voice.name.includes('Monica') || voice.name.includes('Paulina')) && voice.lang.includes('es')) ||
+              voices.find(voice => voice.lang.includes('es'));
+    if(v) u.voice = v;
+    window.speechSynthesis.speak(u);
+}
+
+function toggleTheme() { document.body.classList.toggle('dark-mode'); }
+
+function closeModal() { 
+    document.getElementById('explain-modal').style.display = 'none'; 
+}
+
+function showExplanation(dataStr) {
+    const data = JSON.parse(decodeURIComponent(dataStr));
+    document.getElementById('modal-title').textContent = `Es ${data.adj}`;
+    
+    const genClean = data.gen.replace(/<[^>]*>?/gm, '');
+    const specClean = data.spec.replace(/<[^>]*>?/gm, '');
+    
+    document.getElementById('modal-gen-ex').innerHTML = `${data.gen} <span class="tts-icon" onclick="speak('${genClean}')">🔊</span>`;
+    document.getElementById('modal-spec-ex').innerHTML = `${data.spec} <span class="tts-icon" onclick="speak('${specClean}')">🔊</span>`;
+    
+    document.getElementById('explain-modal').style.display = 'flex';
+}
 
 // --- DATA & TRANSLATIONS ---
 const uiData = {
@@ -402,7 +448,9 @@ const impersonalDB = [
     { adj: "justo", trans: "fair", gen: "Es justo <strong>compartir</strong>.", spec: "Es justo que nosotros <strong>compartamos</strong>." },
     { adj: "injusto", trans: "unfair", gen: "Es injusto <strong>castigar</strong>.", spec: "Es injusto que él la <strong>castigue</strong>." },
     { adj: "vergonzoso", trans: "shameful", gen: "Es vergonzoso <strong>mentir</strong>.", spec: "Es vergonzoso que tú <strong>mientas</strong>." },
-    { adj: "mejor", trans: "better", gen: "Es mejor <strong>esperar</strong>.", spec: "Es mejor que <strong>esperemos</strong>." }
+    { adj: "mejor", trans: "better", gen: "Es mejor <strong>esperar</strong>.", spec: "Es mejor que <strong>esperemos</strong>." },
+    { adj: "difícil", trans: "difficult", gen: "Es difícil <strong>saber</strong>.", spec: "Es difícil que <strong>sepan</strong>." },
+    { adj: "fácil", trans: "easy", gen: "Es fácil <strong>aprender</strong>.", spec: "Es fácil que <strong>aprendas</strong>." }
 ];
 
 // --- QUIZ BANK (20+) ---
@@ -506,21 +554,7 @@ const flashcardData = [
     { en: "It's important to study.", es: "Es importante <strong>estudiar</strong>.", explanation: "General -> Infinitive" },
     { en: "It's important that we study.", es: "Es importante que <strong>estudiemos</strong>.", explanation: "Specific -> Subjunctive" },
     { en: "It's necessary to go.", es: "Es necesario <strong>ir</strong>.", explanation: "General -> Infinitive" },
-    { en: "It's necessary that they go.", es: "Es necesario que ellos <strong>vayan</strong>.", explanation: "Specific -> Subjunctive" },
-    { en: "It's urgent to call.", es: "Es urgente <strong>llamar</strong>.", explanation: "General -> Infinitive" },
-    { en: "It's urgent that you call.", es: "Es urgente que tú <strong>llames</strong>.", explanation: "Specific -> Subjunctive" },
-    { en: "It's rare to see that.", es: "Es raro <strong>ver</strong> eso.", explanation: "General -> Infinitive" },
-    { en: "It's rare that you see that.", es: "Es raro que tú <strong>veas</strong> eso.", explanation: "Specific -> Subjunctive" },
-    { en: "It's sad to lose.", es: "Es triste <strong>perder</strong>.", explanation: "General -> Infinitive" },
-    { en: "It's sad that we lose.", es: "Es triste que nosotros <strong>perdamos</strong>.", explanation: "Specific -> Subjunctive" },
-    { en: "It's fair to share.", es: "Es justo <strong>compartir</strong>.", explanation: "General -> Infinitive" },
-    { en: "It's fair that they share.", es: "Es justo que ellos <strong>compartan</strong>.", explanation: "Specific -> Subjunctive" },
-    { en: "It's impossible to do.", es: "Es imposible <strong>hacer</strong>.", explanation: "General -> Infinitive" },
-    { en: "It's impossible that he does it.", es: "Es imposible que él lo <strong>haga</strong>.", explanation: "Specific -> Subjunctive" },
-    { en: "It's better to wait.", es: "Es mejor <strong>esperar</strong>.", explanation: "General -> Infinitive" },
-    { en: "It's better that you wait.", es: "Es mejor que tú <strong>esperes</strong>.", explanation: "Specific -> Subjunctive" },
-    { en: "It's logical to think so.", es: "Es lógico <strong>pensar</strong> así.", explanation: "General -> Infinitive" },
-    { en: "It's logical that you think so.", es: "Es lógico que tú <strong>pienses</strong> así.", explanation: "Specific -> Subjunctive" }
+    { en: "It's necessary that they go.", es: "Es necesario que ellos <strong>vayan</strong>.", explanation: "Specific -> Subjunctive" }
 ];
 
 // --- LOGIC ---
@@ -592,22 +626,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
-    // 4. MODAL
-    window.showExplanation = function(dataStr) {
-        const data = JSON.parse(decodeURIComponent(dataStr));
-        document.getElementById('modal-title').textContent = `Es ${data.adj}`;
-        
-        // Clean for TTS
-        const genClean = data.gen.replace(/<[^>]*>?/gm, '');
-        const specClean = data.spec.replace(/<[^>]*>?/gm, '');
-        
-        document.getElementById('modal-gen-ex').innerHTML = `${data.gen} <span class="tts-icon" onclick="speak('${genClean}')">🔊</span>`;
-        document.getElementById('modal-spec-ex').innerHTML = `${data.spec} <span class="tts-icon" onclick="speak('${specClean}')">🔊</span>`;
-        
-        document.getElementById('explain-modal').style.display = 'flex';
-    }
-    window.closeModal = () => document.getElementById('explain-modal').style.display = 'none';
 
     // 5. QUIZ
     document.getElementById('generate-quiz').addEventListener('click', generateQuiz);
